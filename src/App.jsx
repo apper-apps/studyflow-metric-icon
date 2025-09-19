@@ -160,10 +160,7 @@ return (
           {/* Sidebar */}
           <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
 
-  const closeSidebar = () => setSidebarOpen(false);
-  const openSidebar = () => setSidebarOpen(true);
-
-{/* Main Content */}
+          {/* Main Content */}
           <div className="flex-1 flex flex-col overflow-hidden">
             <main className="flex-1 overflow-y-auto">
               <div className="container mx-auto px-6 py-8 max-w-7xl">
@@ -206,6 +203,4 @@ function App() {
     </Provider>
   );
 }
-          
-          {/* Main Content */}
 export default App;
