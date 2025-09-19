@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { useSelector } from 'react-redux';
 import ApperIcon from "@/components/ApperIcon";
+import Button from "@/components/atoms/Button";
 import { cn } from "@/utils/cn";
+import { AuthContext } from '../../App';
 
 const Sidebar = ({ isOpen, onClose }) => {
   const location = useLocation();
@@ -58,17 +61,46 @@ const Sidebar = ({ isOpen, onClose }) => {
         })}
       </nav>
 
-      {/* Bottom Section */}
+{/* User Profile Section */}
       <div className="p-6 border-t border-gray-200">
-        <div className="bg-gradient-to-br from-accent-50 to-accent-100 rounded-lg p-4 space-y-2">
-          <h3 className="text-sm font-semibold text-accent-900">Study Tip</h3>
-          <p className="text-xs text-accent-700">
-            Use the calendar view to visualize your deadlines and plan study sessions effectively.
-          </p>
-        </div>
+        <UserProfile />
       </div>
     </div>
-  );
+);
+
+  const UserProfile = () => {
+    const { user } = useSelector((state) => state.user);
+    const { logout } = useContext(AuthContext);
+
+    return (
+      <div className="space-y-4">
+        {user && (
+          <div className="bg-gradient-to-br from-primary-50 to-primary-100 rounded-lg p-4 space-y-2">
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-full flex items-center justify-center">
+                <ApperIcon name="User" className="h-4 w-4 text-white" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-primary-900 truncate">
+                  {user.firstName} {user.lastName}
+                </p>
+                <p className="text-xs text-primary-700 truncate">{user.emailAddress}</p>
+              </div>
+            </div>
+          </div>
+        )}
+        <Button 
+          variant="outline" 
+          size="sm" 
+          onClick={logout}
+          className="w-full text-gray-600 hover:text-gray-900"
+        >
+          <ApperIcon name="LogOut" className="h-4 w-4 mr-2" />
+          Logout
+        </Button>
+      </div>
+    );
+  };
 
   return (
     <>
@@ -106,5 +138,4 @@ const Sidebar = ({ isOpen, onClose }) => {
     </>
   );
 };
-
 export default Sidebar;
