@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Button from "@/components/atoms/Button";
-import FormField from "@/components/molecules/FormField";
-import CourseColorPicker from "@/components/molecules/CourseColorPicker";
-import ApperIcon from "@/components/ApperIcon";
+import React, { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { courseService } from "@/services/api/courseService";
 import { toast } from "react-toastify";
+import ApperIcon from "@/components/ApperIcon";
+import CourseColorPicker from "@/components/molecules/CourseColorPicker";
+import FormField from "@/components/molecules/FormField";
+import Textarea from "@/components/atoms/Textarea";
+import Button from "@/components/atoms/Button";
 
 const CourseModal = ({ isOpen, onClose, course, onSuccess }) => {
   const [formData, setFormData] = useState({
     name: "",
-    professor: "",
+professor: "",
+    description: "",
     credits: 3,
     color: "#0ea5e9",
     semester: "Fall 2024",
@@ -30,7 +32,8 @@ const CourseModal = ({ isOpen, onClose, course, onSuccess }) => {
     } else {
       setFormData({
         name: "",
-        professor: "",
+professor: "",
+        description: course.description_c || "",
         credits: 3,
         color: "#0ea5e9",
         semester: "Fall 2024",
@@ -198,7 +201,15 @@ const CourseModal = ({ isOpen, onClose, course, onSuccess }) => {
                   selectedColor={formData.color}
                   onColorChange={(color) => setFormData({ ...formData, color })}
                 />
-              </div>
+</div>
+
+              <FormField
+                label="Description"
+                value={formData.description}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                component={Textarea}
+                placeholder="Add course description..."
+              />
 
               {/* Schedule */}
               <div className="space-y-4">
