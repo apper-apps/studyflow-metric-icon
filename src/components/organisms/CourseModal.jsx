@@ -31,9 +31,9 @@ professor: "",
       setFormData(course);
     } else {
 setFormData({
-        name: course?.name || "",
-        professor: course?.professor_c || "",
-        description: course?.description_c || "",
+        name: course?.name ?? "",
+        professor: course?.professor_c ?? "",
+        description: course?.description_c ?? "",
         credits: 3,
         color: "#0ea5e9",
         semester: "Fall 2024",
