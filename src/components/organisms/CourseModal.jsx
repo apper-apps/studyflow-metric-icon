@@ -30,10 +30,10 @@ professor: "",
     if (course) {
       setFormData(course);
     } else {
-      setFormData({
-        name: "",
-professor: "",
-        description: course.description_c || "",
+setFormData({
+        name: course?.name || "",
+        professor: course?.professor_c || "",
+        description: course?.description_c || "",
         credits: 3,
         color: "#0ea5e9",
         semester: "Fall 2024",
